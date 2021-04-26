@@ -6,7 +6,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pokeapp.databinding.ActivityLoginBinding
 
-
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
@@ -18,7 +17,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.loginButton.setOnClickListener(View.OnClickListener {
-            val intent: Intent = Intent(this@LoginActivity, MainActivity::class.java)
+            val intent: Intent = Intent(this@LoginActivity, PokemonListActivity::class.java)
             startActivity(intent)
             finish()
         })

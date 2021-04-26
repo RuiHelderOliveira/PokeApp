@@ -9,4 +9,14 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="title_pokemon_list">PokemonDeck</string>
+    <string name="title_pokemon_detail">Pokemon Detail</string>
+
+    // Detail fragment labels
+    <string name="weight_label">Weight:</string>
+    <string name="order_label">Order:</string>
+    <string name="is_default_label">Is default:</string>
+    <string name="height_label">Height:</string>
+    <string name="experience_label">Experience:</string>
+    <string name="id_label">Id:</string>
 </resources>

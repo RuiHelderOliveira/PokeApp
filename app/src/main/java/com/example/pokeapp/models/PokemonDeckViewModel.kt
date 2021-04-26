@@ -9,33 +9,31 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PokemonViewModel : ViewModel() {
+class PokemonDeckViewModel : ViewModel() {
 
     private var pokemonService: PokemonService
-    private var pokemonLiveData: MutableLiveData<Pokemon>
+    private var pokemonLiveData: MutableLiveData<PokemonDeck>
 
     init {
         pokemonService = PokemonApi.create()
-        pokemonLiveData = MutableLiveData<Pokemon>()
+        pokemonLiveData = MutableLiveData<PokemonDeck>()
     }
 
-    fun getPokemon(keyword: String?) {
-        if (keyword != null) {
-            pokemonService.getPokemon(keyword).enqueue(object : Callback<Pokemon> {
-                override fun onResponse(call: Call<Pokemon>, response: Response<Pokemon>) {
+    fun getPokemons() {
+            pokemonService.getPokemons().enqueue(object : Callback<PokemonDeck> {
+                override fun onResponse(call: Call<PokemonDeck>, response: Response<PokemonDeck>) {
                     if (response.body() != null) {
                         pokemonLiveData.postValue(response.body())
                     }
                 }
 
-                override fun onFailure(call: Call<Pokemon>, t: Throwable) {
+                override fun onFailure(call: Call<PokemonDeck>, t: Throwable) {
                     pokemonLiveData.postValue(null)
                 }
             })
-        }
     }
 
-    fun getPokemonModelLiveData(): LiveData<Pokemon> {
+    fun getPokemonModelLiveData(): LiveData<PokemonDeck> {
         return pokemonLiveData
     }
 }

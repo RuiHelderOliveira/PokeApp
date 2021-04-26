@@ -17,4 +17,13 @@
     <style name="SplashScreenTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:windowBackground">@drawable/splash_screen_background</item>
     </style>
+
+    <style name="Theme.PokeApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.PokeApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.PokeApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

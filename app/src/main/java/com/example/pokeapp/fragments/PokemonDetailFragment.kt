@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.pokeapp.R
 import com.example.pokeapp.activities.PokemonListActivity
-import com.example.pokeapp.databinding.PokemonDetailBinding
+import com.example.pokeapp.databinding.FragmentPokemonDetailBinding
 import com.example.pokeapp.models.Pokemon
 import com.example.pokeapp.models.PokemonSprites
 import com.example.pokeapp.models.PokemonViewModel
@@ -39,7 +39,7 @@ class PokemonDetailFragment : Fragment() {
     private var item: String? = null
     private val viewModel: PokemonViewModel by activityViewModels()
 
-    private lateinit var _binding: PokemonDetailBinding
+    private lateinit var _binding: FragmentPokemonDetailBinding
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -64,7 +64,7 @@ class PokemonDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = PokemonDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentPokemonDetailBinding.inflate(inflater, container, false)
         mView = binding.root
 
         this@PokemonDetailFragment.activity?.let {

@@ -16,7 +16,10 @@ class LoginActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.loginButton.setOnClickListener(View.OnClickListener {
+        setSupportActionBar(binding.toolbar)
+        binding.toolbar.title = title
+
+        binding.loginLayout.loginButton.setOnClickListener(View.OnClickListener {
             val intent: Intent = Intent(this@LoginActivity, PokemonListActivity::class.java)
             startActivity(intent)
             finish()

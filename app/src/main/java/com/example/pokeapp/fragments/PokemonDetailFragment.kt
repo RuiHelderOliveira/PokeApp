@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.pokeapp.R
 import com.example.pokeapp.activities.PokemonListActivity
 import com.example.pokeapp.databinding.FragmentPokemonDetailBinding
 import com.example.pokeapp.models.Pokemon
 import com.example.pokeapp.models.PokemonSprites
 import com.example.pokeapp.models.PokemonViewModel
+import com.example.pokeapp.network.PokemonApi
 import com.google.android.material.appbar.CollapsingToolbarLayout
 
 /**
@@ -37,7 +39,7 @@ class PokemonDetailFragment : Fragment() {
      * The dummy content this fragment is presenting.
      */
     private var item: String? = null
-    private val viewModel: PokemonViewModel by activityViewModels()
+    private var viewModel: PokemonViewModel? = null
 
     private lateinit var _binding: FragmentPokemonDetailBinding
 
@@ -67,8 +69,11 @@ class PokemonDetailFragment : Fragment() {
         _binding = FragmentPokemonDetailBinding.inflate(inflater, container, false)
         mView = binding.root
 
+         viewModel = ViewModelProvider(this, PokemonViewModel.PokemonViewModelFactory(PokemonApi.create())).get(PokemonViewModel::class.java)
+
+
         this@PokemonDetailFragment.activity?.let {
-            viewModel.getPokemonModelLiveData().observe(it) { response ->
+            viewModel!!.getPokemonModelLiveData().observe(it) { response ->
                 if (response != null) {
                     Log.d(TAG, response.toString())
 
@@ -96,7 +101,7 @@ class PokemonDetailFragment : Fragment() {
                 }
             }
         }
-        viewModel.getPokemon(item)
+        viewModel!!.getPokemon(item)
 
         return mView
     }

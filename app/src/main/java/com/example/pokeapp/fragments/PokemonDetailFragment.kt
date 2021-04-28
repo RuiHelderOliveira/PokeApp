@@ -73,7 +73,7 @@ class PokemonDetailFragment : Fragment() {
                     Log.d(TAG, response.toString())
 
                     // Show the model content as text in a TextView.
-                    response?.let {
+                    response.let {
                         _binding.idLayout.labelTextView.text = getString(R.string.id_label)
                         _binding.idLayout.attrTextView.text = it.id.toString()
 

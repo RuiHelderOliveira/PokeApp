@@ -5,21 +5,23 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
-import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeapp.R
 import com.example.pokeapp.adapters.PokemonRecyclerViewAdapter
 import com.example.pokeapp.databinding.ActivityPokemonListBinding
 import com.example.pokeapp.models.PokemonDeck
 import com.example.pokeapp.models.PokemonDeckViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
- * An activity representing a list of Pings. This activity
+ * An activity representing a list of Pokemons. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
  * lead to a [PokemonDetailActivity] representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
+@AndroidEntryPoint
 class PokemonListActivity : AppCompatActivity() {
 
     companion object {
@@ -35,7 +37,10 @@ class PokemonListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPokemonListBinding
 
     private val viewModel: PokemonDeckViewModel by viewModels()
-    private lateinit var pokemons: Array<PokemonDeck.PokemonNames>
+    lateinit var pokemons: Array<PokemonDeck.PokemonNames>
+
+    @Inject
+    var adapter: PokemonRecyclerViewAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,17 +59,13 @@ class PokemonListActivity : AppCompatActivity() {
             twoPane = true
         }
 
-        viewModel.getPokemonModelLiveData().observe(this) { response ->
+        viewModel.pokemonLiveData.observe(this) { response ->
             if (response != null) {
                 Log.d(TAG, response.toString())
                 pokemons = response.results
-                setupRecyclerView(findViewById(R.id.pokemon_list))
+                binding.pokemonListLayout.pokemonList.adapter = adapter
             }
         }
         viewModel.getPokemons()
-    }
-
-    private fun setupRecyclerView(recyclerView: RecyclerView) {
-        recyclerView.adapter = PokemonRecyclerViewAdapter(this@PokemonListActivity, pokemons, twoPane)
     }
 }

@@ -12,35 +12,32 @@ import com.example.pokeapp.activities.PokemonDetailActivity
 import com.example.pokeapp.activities.PokemonListActivity
 import com.example.pokeapp.fragments.PokemonDetailFragment
 import com.example.pokeapp.models.PokemonDeck
+import javax.inject.Inject
 
-class PokemonRecyclerViewAdapter(
+class PokemonRecyclerViewAdapter @Inject constructor(
     private val parentActivity: PokemonListActivity,
     private val values: Array<PokemonDeck.PokemonNames>,
     private val twoPane: Boolean
 ) :
     RecyclerView.Adapter<PokemonRecyclerViewAdapter.ViewHolder>() {
 
-    private val onClickListener: View.OnClickListener
-
-    init {
-        onClickListener = View.OnClickListener { v ->
-            val item = v.tag as PokemonDeck.PokemonNames
-            if (twoPane) {
-                val fragment = PokemonDetailFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(PokemonDetailFragment.ARG_ITEM_ID, item.name)
-                    }
+    private val onClickListener: View.OnClickListener = View.OnClickListener { v ->
+        val item = v.tag as PokemonDeck.PokemonNames
+        if (twoPane) {
+            val fragment = PokemonDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putString(PokemonDetailFragment.ARG_ITEM_ID, item.name)
                 }
-                parentActivity.supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.pokemon_detail_container, fragment)
-                    .commit()
-            } else {
-                val intent = Intent(v.context, PokemonDetailActivity::class.java).apply {
-                    putExtra(PokemonDetailFragment.ARG_ITEM_ID, item.name)
-                }
-                v.context.startActivity(intent)
             }
+            parentActivity.supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.pokemon_detail_container, fragment)
+                .commit()
+        } else {
+            val intent = Intent(v.context, PokemonDetailActivity::class.java).apply {
+                putExtra(PokemonDetailFragment.ARG_ITEM_ID, item.name)
+            }
+            v.context.startActivity(intent)
         }
     }
 

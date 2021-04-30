@@ -3,17 +3,19 @@ package com.example.pokeapp.models
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.example.pokeapp.network.PokemonApi
 import com.example.pokeapp.network.PokemonService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class PokemonViewModel private constructor(private val pokemonService: PokemonService): ViewModel() {
+@HiltViewModel
+class PokemonViewModel @Inject constructor(private val pokemonService: PokemonService) : ViewModel() {
 
-    private var _pokemonLiveData: MutableLiveData<Pokemon> = MutableLiveData<Pokemon>()
-    private var pokemonLiveData: LiveData<Pokemon> = _pokemonLiveData
+    private val _pokemonLiveData: MutableLiveData<Pokemon> = MutableLiveData<Pokemon>()
+    val pokemonLiveData: LiveData<Pokemon>
+        get() = _pokemonLiveData
 
     fun getPokemon(keyword: String?) {
         if (keyword != null) {
@@ -28,20 +30,6 @@ class PokemonViewModel private constructor(private val pokemonService: PokemonSe
                     _pokemonLiveData.postValue(null)
                 }
             })
-        }
-    }
-
-    fun getPokemonModelLiveData(): LiveData<Pokemon> {
-        return pokemonLiveData
-    }
-
-    internal class PokemonViewModelFactory(
-        private val pokemonService: PokemonService
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return PokemonViewModel(
-                pokemonService
-            ) as T
         }
     }
 }

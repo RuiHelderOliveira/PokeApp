@@ -3,20 +3,15 @@ package com.example.pokeapp
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.Observer
 import com.example.pokeapp.models.Pokemon
 import com.example.pokeapp.models.PokemonDeckViewModel
 import com.example.pokeapp.models.PokemonViewModel
-import com.example.pokeapp.network.PokemonApi
 import com.example.pokeapp.network.PokemonService
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.MockitoAnnotations
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -43,7 +38,7 @@ class ExampleUnitTest {
     var lifecycleOwner: LifecycleOwner? = null
     var lifecycle: Lifecycle? = null
 
-    @Before
+    /*@Before
     @Throws(Exception::class)
     fun setUp() {
         MockitoAnnotations.initMocks(this)
@@ -57,7 +52,7 @@ class ExampleUnitTest {
         `when`(apiServices?.getPokemon("ditto")).thenReturn(null)
         assertNotNull(viewModel?.getPokemonModelLiveData())
         assertTrue(viewModel?.getPokemonModelLiveData()?.hasObservers() == true)
-    }
+    }*/
 
     @Test
     fun addition_isCorrect() {

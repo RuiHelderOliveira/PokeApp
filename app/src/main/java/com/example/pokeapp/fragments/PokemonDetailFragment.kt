@@ -6,16 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.example.pokeapp.R
 import com.example.pokeapp.activities.PokemonListActivity
 import com.example.pokeapp.databinding.FragmentPokemonDetailBinding
-import com.example.pokeapp.models.Pokemon
-import com.example.pokeapp.models.PokemonSprites
 import com.example.pokeapp.models.PokemonViewModel
-import com.example.pokeapp.network.PokemonApi
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * A fragment representing a single Pokemon detail screen.
@@ -23,6 +20,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
  * in two-pane mode (on tablets) or a [PokemonDetailActivity]
  * on handsets.
  */
+@AndroidEntryPoint
 class PokemonDetailFragment : Fragment() {
 
     companion object {
@@ -39,7 +37,8 @@ class PokemonDetailFragment : Fragment() {
      * The dummy content this fragment is presenting.
      */
     private var item: String? = null
-    private var viewModel: PokemonViewModel? = null
+    //private var viewModel: PokemonViewModel? = null
+    private val viewModel: PokemonViewModel by viewModels()
 
     private lateinit var _binding: FragmentPokemonDetailBinding
 
@@ -57,7 +56,8 @@ class PokemonDetailFragment : Fragment() {
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
                 item = it.getString(ARG_ITEM_ID)
-                activity?.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)?.title = it.getString(ARG_ITEM_ID)?.toUpperCase()
+                activity?.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)?.title =
+                    it.getString(ARG_ITEM_ID)?.toUpperCase()
             }
         }
     }
@@ -69,11 +69,8 @@ class PokemonDetailFragment : Fragment() {
         _binding = FragmentPokemonDetailBinding.inflate(inflater, container, false)
         mView = binding.root
 
-         viewModel = ViewModelProvider(this, PokemonViewModel.PokemonViewModelFactory(PokemonApi.create())).get(PokemonViewModel::class.java)
-
-
         this@PokemonDetailFragment.activity?.let {
-            viewModel!!.getPokemonModelLiveData().observe(it) { response ->
+            viewModel.pokemonLiveData.observe(it) { response ->
                 if (response != null) {
                     Log.d(TAG, response.toString())
 
@@ -82,13 +79,15 @@ class PokemonDetailFragment : Fragment() {
                         _binding.idLayout.labelTextView.text = getString(R.string.id_label)
                         _binding.idLayout.attrTextView.text = it.id.toString()
 
-                        _binding.experienceLayout.labelTextView.text = getString(R.string.experience_label)
+                        _binding.experienceLayout.labelTextView.text =
+                            getString(R.string.experience_label)
                         _binding.experienceLayout.attrTextView.text = it.base_experience.toString()
 
                         _binding.heightLayout.labelTextView.text = getString(R.string.height_label)
                         _binding.heightLayout.attrTextView.text = it.height.toString()
 
-                        _binding.isDefaultLayout.labelTextView.text = getString(R.string.is_default_label)
+                        _binding.isDefaultLayout.labelTextView.text =
+                            getString(R.string.is_default_label)
                         _binding.isDefaultLayout.attrTextView.text = it.is_default.toString()
 
                         _binding.orderLayout.labelTextView.text = getString(R.string.order_label)
@@ -101,7 +100,7 @@ class PokemonDetailFragment : Fragment() {
                 }
             }
         }
-        viewModel!!.getPokemon(item)
+        viewModel.getPokemon(item)
 
         return mView
     }

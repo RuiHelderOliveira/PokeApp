@@ -2,14 +2,11 @@ package com.example.pokeapp.activities
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
-import com.example.pokeapp.fragments.PokemonDetailFragment
+import androidx.appcompat.app.AppCompatActivity
 import com.example.pokeapp.R
 import com.example.pokeapp.databinding.ActivityPokemonDetailBinding
-import com.example.pokeapp.databinding.ActivityPokemonListBinding
+import com.example.pokeapp.fragments.PokemonDetailFragment
 
 /**
  * An activity representing a single Pokemon detail screen. This

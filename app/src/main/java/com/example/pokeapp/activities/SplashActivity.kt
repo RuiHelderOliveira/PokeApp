@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 class SplashActivity : AppCompatActivity() {
 
     private val splashTime = 3000L
-    private lateinit var mHandler: Handler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

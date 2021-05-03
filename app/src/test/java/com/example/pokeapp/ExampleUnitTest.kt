@@ -20,7 +20,7 @@ import org.mockito.Mock
  */
 class ExampleUnitTest {
 
-    @get:Rule
+    /*@get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @Mock
@@ -36,7 +36,7 @@ class ExampleUnitTest {
 
     @Mock
     var lifecycleOwner: LifecycleOwner? = null
-    var lifecycle: Lifecycle? = null
+    var lifecycle: Lifecycle? = null*/
 
     /*@Before
     @Throws(Exception::class)

@@ -1,27 +1,22 @@
 package com.example.pokeapp.adapters
 
-import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeapp.R
-import com.example.pokeapp.activities.PokemonDetailActivity
-import com.example.pokeapp.activities.PokemonListActivity
-import com.example.pokeapp.fragments.PokemonDetailFragment
+import com.example.pokeapp.fragments.PokemonListFragment
 import com.example.pokeapp.models.PokemonDeck
+import java.util.*
 import javax.inject.Inject
 
 class PokemonRecyclerViewAdapter @Inject constructor(
-    private val parentActivity: PokemonListActivity,
-    private val values: Array<PokemonDeck.PokemonNames>,
-    private val twoPane: Boolean
-) :
-    RecyclerView.Adapter<PokemonRecyclerViewAdapter.ViewHolder>() {
+    val onClick: PokemonListFragment,
+    val values: Array<PokemonDeck.PokemonNames>,
+) : RecyclerView.Adapter<PokemonRecyclerViewAdapter.ViewHolder>() {
 
-    private val onClickListener: View.OnClickListener = View.OnClickListener { v ->
+    /*private val onClickListener = View.OnClickListener { v ->
         val item = v.tag as PokemonDeck.PokemonNames
         if (twoPane) {
             val fragment = PokemonDetailFragment().apply {
@@ -29,8 +24,7 @@ class PokemonRecyclerViewAdapter @Inject constructor(
                     putString(PokemonDetailFragment.ARG_ITEM_ID, item.name)
                 }
             }
-            parentActivity.supportFragmentManager
-                .beginTransaction()
+            context.beginTransaction()
                 .replace(R.id.pokemon_detail_container, fragment)
                 .commit()
         } else {
@@ -39,7 +33,7 @@ class PokemonRecyclerViewAdapter @Inject constructor(
             }
             v.context.startActivity(intent)
         }
-    }
+    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -50,11 +44,11 @@ class PokemonRecyclerViewAdapter @Inject constructor(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
         holder.idView.text = (position + 1).toString()
-        holder.nameTextView.text = item.name.toUpperCase()
+        holder.nameTextView.text = item.name.toUpperCase(Locale.getDefault())
 
         with(holder.itemView) {
             tag = item
-            setOnClickListener(onClickListener)
+            setOnClickListener(onClick)
         }
     }
 

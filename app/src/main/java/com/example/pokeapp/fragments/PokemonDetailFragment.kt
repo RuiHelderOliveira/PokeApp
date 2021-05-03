@@ -8,17 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.pokeapp.R
-import com.example.pokeapp.activities.PokemonListActivity
 import com.example.pokeapp.databinding.FragmentPokemonDetailBinding
 import com.example.pokeapp.models.PokemonViewModel
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 /**
  * A fragment representing a single Pokemon detail screen.
- * This fragment is either contained in a [PokemonListActivity]
- * in two-pane mode (on tablets) or a [PokemonDetailActivity]
- * on handsets.
  */
 @AndroidEntryPoint
 class PokemonDetailFragment : Fragment() {
@@ -57,7 +54,7 @@ class PokemonDetailFragment : Fragment() {
                 // to load content from a content provider.
                 item = it.getString(ARG_ITEM_ID)
                 activity?.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)?.title =
-                    it.getString(ARG_ITEM_ID)?.toUpperCase()
+                    it.getString(ARG_ITEM_ID)?.toUpperCase(Locale.getDefault())
             }
         }
     }

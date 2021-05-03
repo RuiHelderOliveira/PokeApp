@@ -37,7 +37,7 @@ class PokemonListFragment : Fragment(), View.OnClickListener {
     lateinit var pokemons: Array<PokemonDeck.PokemonNames>
 
     @Inject
-    var adapter: PokemonRecyclerViewAdapter? = null
+    lateinit var adapter: PokemonRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,

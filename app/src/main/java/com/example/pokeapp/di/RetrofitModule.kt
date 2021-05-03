@@ -15,14 +15,12 @@ import javax.inject.Singleton
 object RetrofitModule {
 
     @Provides
-    fun provideBaseUrl() = BuildConfig.BASE_URL
-
-    @Provides
     @Singleton
     fun provideRetrofit(): Retrofit.Builder {
+        val pokemonServiceBaseUrl = "https://pokeapi.co/api/v2/"
 
         return Retrofit.Builder()
-            .baseUrl(provideBaseUrl())
+            .baseUrl(pokemonServiceBaseUrl)
             .addConverterFactory(GsonConverterFactory.create())
     }
 

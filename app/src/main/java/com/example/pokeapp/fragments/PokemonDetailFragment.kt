@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.pokeapp.R
@@ -34,7 +35,7 @@ class PokemonDetailFragment : Fragment() {
      * The dummy content this fragment is presenting.
      */
     private var item: String? = null
-    //private var viewModel: PokemonViewModel? = null
+
     private val viewModel: PokemonViewModel by viewModels()
 
     private lateinit var _binding: FragmentPokemonDetailBinding
@@ -53,7 +54,7 @@ class PokemonDetailFragment : Fragment() {
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
                 item = it.getString(ARG_ITEM_ID)
-                activity?.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)?.title =
+                activity?.findViewById<Toolbar>(R.id.toolbar)?.title =
                     it.getString(ARG_ITEM_ID)?.toUpperCase(Locale.getDefault())
             }
         }

@@ -11,10 +11,11 @@ import com.example.pokeapp.models.PokemonDeck
 import java.util.*
 import javax.inject.Inject
 
-class PokemonRecyclerViewAdapter @Inject constructor(
-    val onClick: PokemonListFragment,
-    val values: Array<PokemonDeck.PokemonNames>,
-) : RecyclerView.Adapter<PokemonRecyclerViewAdapter.ViewHolder>() {
+class PokemonRecyclerViewAdapter @Inject constructor() :
+    RecyclerView.Adapter<PokemonRecyclerViewAdapter.ViewHolder>() {
+
+    private lateinit var onClick: PokemonListFragment
+    private lateinit var values: Array<PokemonDeck.PokemonNames>
 
     /*private val onClickListener = View.OnClickListener { v ->
         val item = v.tag as PokemonDeck.PokemonNames
@@ -34,6 +35,14 @@ class PokemonRecyclerViewAdapter @Inject constructor(
             v.context.startActivity(intent)
         }
     }*/
+
+    fun setList(values: Array<PokemonDeck.PokemonNames>) {
+        this.values = values
+    }
+
+    fun setOnClick(pokemonListFragment: PokemonListFragment) {
+        this.onClick = pokemonListFragment
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)

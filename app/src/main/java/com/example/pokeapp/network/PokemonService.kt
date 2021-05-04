@@ -5,9 +5,7 @@ import com.example.pokeapp.models.PokemonDeck
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
-import javax.inject.Singleton
 
-@Singleton
 interface PokemonService {
 
     @GET("pokemon/")

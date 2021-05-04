@@ -36,8 +36,7 @@ class PokemonListFragment : Fragment(), View.OnClickListener {
     private val viewModel: PokemonDeckViewModel by viewModels()
     lateinit var pokemons: Array<PokemonDeck.PokemonNames>
 
-    @Inject
-    lateinit var adapter: PokemonRecyclerViewAdapter
+    @Inject lateinit var adapter: PokemonRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,13 +50,21 @@ class PokemonListFragment : Fragment(), View.OnClickListener {
                 if (response != null) {
                     Log.d(TAG, response.toString())
                     pokemons = response.results
-                    binding.pokemonList.adapter = adapter
+
+                    setPropertyAdapter(pokemons)
+                    //binding.pokemonList.adapter = PokemonRecyclerViewAdapter(this, pokemons)
                 }
             }
         }
         viewModel.getPokemons()
 
         return binding.root
+    }
+
+    private fun setPropertyAdapter(pokemons: Array<PokemonDeck.PokemonNames>) {
+        adapter.setOnClick(this)
+        adapter.setList(pokemons)
+        binding.pokemonList.adapter = adapter
     }
 
     override fun onClick(v: View?) {

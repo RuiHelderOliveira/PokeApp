@@ -11,7 +11,8 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class PokemonViewModel @Inject constructor(private val pokemonService: PokemonService) : ViewModel() {
+class PokemonViewModel @Inject constructor(private val pokemonService: PokemonService) :
+    ViewModel() {
 
     private val _pokemonLiveData: MutableLiveData<Pokemon> = MutableLiveData<Pokemon>()
     val pokemonLiveData: LiveData<Pokemon>

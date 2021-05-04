@@ -2,9 +2,8 @@ package com.example.pokeapp.network
 
 import com.example.pokeapp.models.Pokemon
 import com.example.pokeapp.models.PokemonDeck
-
+import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.Call;
 import retrofit2.http.Path
 
 interface PokemonService {

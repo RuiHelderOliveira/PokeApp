@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.pokeapp.fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_login_screen_to_pokemon_list"
+            app:destination="@id/pokemon_list" />
+    </fragment>
+    <fragment
+        android:id="@+id/pokemon_list"
+        android:name="com.example.pokeapp.fragments.PokemonListFragment"
+        android:label="fragment_pokemon_list"
+        tools:layout="@layout/fragment_pokemon_list">
+        <action
+            android:id="@+id/action_list_screen_to_detail"
+            app:destination="@id/pokemon_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/pokemon_detail"
+        android:name="com.example.pokeapp.fragments.PokemonDetailFragment"
+        android:label="fragment_pokemon_detail"
+        tools:layout="@layout/fragment_pokemon_detail">
+        <argument
+            android:name="item_id"
+            app:argType="string" />
+    </fragment>
+</navigation>

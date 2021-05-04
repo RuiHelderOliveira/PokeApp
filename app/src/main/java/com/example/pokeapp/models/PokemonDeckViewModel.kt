@@ -11,23 +11,24 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class PokemonDeckViewModel @Inject constructor(private val pokemonService: PokemonService) : ViewModel() {
+class PokemonDeckViewModel @Inject constructor(private val pokemonService: PokemonService) :
+    ViewModel() {
 
     private val _pokemonLiveData: MutableLiveData<PokemonDeck> = MutableLiveData<PokemonDeck>()
     val pokemonLiveData: LiveData<PokemonDeck>
         get() = _pokemonLiveData
 
     fun getPokemons() {
-            pokemonService.getPokemons().enqueue(object : Callback<PokemonDeck> {
-                override fun onResponse(call: Call<PokemonDeck>, response: Response<PokemonDeck>) {
-                    if (response.body() != null) {
-                        _pokemonLiveData.postValue(response.body())
-                    }
+        pokemonService.getPokemons().enqueue(object : Callback<PokemonDeck> {
+            override fun onResponse(call: Call<PokemonDeck>, response: Response<PokemonDeck>) {
+                if (response.body() != null) {
+                    _pokemonLiveData.postValue(response.body())
                 }
+            }
 
-                override fun onFailure(call: Call<PokemonDeck>, t: Throwable) {
-                    _pokemonLiveData.postValue(null)
-                }
-            })
+            override fun onFailure(call: Call<PokemonDeck>, t: Throwable) {
+                _pokemonLiveData.postValue(null)
+            }
+        })
     }
 }

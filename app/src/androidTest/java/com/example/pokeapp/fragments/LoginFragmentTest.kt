@@ -31,10 +31,6 @@ class LoginFragmentTest {
         AccessibilityChecks.enable()
     }
 
-    @Test
-    fun onCreateView() {
-    }
-
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 

@@ -20,12 +20,4 @@ class PokemonDetailFragmentTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         Assert.assertEquals("com.example.pokeapp", appContext.packageName)
     }
-
-    @Test
-    fun onCreate() {
-    }
-
-    @Test
-    fun onCreateView() {
-    }
 }

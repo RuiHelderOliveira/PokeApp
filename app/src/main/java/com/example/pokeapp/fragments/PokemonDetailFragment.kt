@@ -8,8 +8,12 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 import com.example.pokeapp.R
 import com.example.pokeapp.databinding.FragmentPokemonDetailBinding
+import com.example.pokeapp.models.PokemonDeck
+import com.example.pokeapp.models.PokemonNames
 import com.example.pokeapp.models.PokemonViewModel
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,8 +47,8 @@ class PokemonDetailFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding
-    private lateinit var mView: View
 
+    //@OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -63,43 +67,28 @@ class PokemonDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentPokemonDetailBinding.inflate(inflater, container, false)
-        mView = binding.root
 
-        this@PokemonDetailFragment.activity?.let {
-            viewModel.pokemonLiveData.observe(it) { response ->
+        this@PokemonDetailFragment.activity?.let { pokemon ->
+            viewModel.pokemonLiveData.observe(pokemon) { response ->
                 if (response != null) {
                     Log.d(TAG, response.toString())
 
                     // Show the model content as text in a TextView.
                     response.let {
-                        _binding.idLayout.labelTextView.text = getString(R.string.id_label)
-                        _binding.idLayout.attrTextView.text = it.id.toString()
-
-                        _binding.experienceLayout.labelTextView.text =
-                            getString(R.string.experience_label)
-                        _binding.experienceLayout.attrTextView.text = it.base_experience.toString()
-
-                        _binding.heightLayout.labelTextView.text = getString(R.string.height_label)
-                        _binding.heightLayout.attrTextView.text = it.height.toString()
-
-                        _binding.isDefaultLayout.labelTextView.text =
-                            getString(R.string.is_default_label)
-                        _binding.isDefaultLayout.attrTextView.text = it.is_default.toString()
-
-                        _binding.orderLayout.labelTextView.text = getString(R.string.order_label)
-                        _binding.orderLayout.attrTextView.text = it.order.toString()
-
-                        _binding.weightLayout.labelTextView.text = getString(R.string.weight_label)
-                        _binding.weightLayout.attrTextView.text = it.weight.toString()
-
+                        _binding.idAttrTextView.text = it. id.toString()
+                        _binding.experienceAttrTextView.text = it.base_experience.toString()
+                        _binding.heightAttrTextView.text = it.height.toString()
+                        _binding.isDefaultAttrTextView.text = it.is_default.toString()
+                        _binding.orderAttrTextView.text = it.order.toString()
+                        _binding.weightAttrTextView.text = it.weight.toString()
                     }
                 }
             }
         }
         viewModel.getPokemon(item)
 
-        return mView
+        return binding.root
     }
 }

@@ -44,13 +44,13 @@ class LoginFragmentTest {
         // Create a graphical FragmentScenario for the TitleScreen
         val loginScenario = launchFragmentInContainer<LoginFragment>()
 
-        loginScenario.onFragment { fragment ->
+        /*loginScenario.onFragment { fragment ->
             // Set the graph on the TestNavHostController
             navController.setGraph(R.navigation.nav_graph)
 
             // Make the NavController available via the findNavController() APIs
             Navigation.setViewNavController(fragment.requireView(), navController)
-        }
+        }*/
 
         onView(withId(R.id.login_button)).perform(click())
 

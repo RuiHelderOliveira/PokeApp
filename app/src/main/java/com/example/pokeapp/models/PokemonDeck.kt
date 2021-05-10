@@ -6,11 +6,6 @@ data class PokemonDeck(
     val previous: String,
     val results: Array<PokemonNames>
 ) {
-    data class PokemonNames(
-        val name: String,
-        val url: String
-    )
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -33,4 +28,9 @@ data class PokemonDeck(
         return result
     }
 }
+
+data class PokemonNames(
+    val name: String,
+    val url: String
+)
 

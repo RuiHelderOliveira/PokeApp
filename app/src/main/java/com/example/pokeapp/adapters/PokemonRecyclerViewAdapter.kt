@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeapp.R
 import com.example.pokeapp.fragments.PokemonListFragment
 import com.example.pokeapp.models.PokemonDeck
+import com.example.pokeapp.models.PokemonNames
 import java.util.*
 import javax.inject.Inject
 
@@ -15,7 +16,7 @@ class PokemonRecyclerViewAdapter @Inject constructor() :
     RecyclerView.Adapter<PokemonRecyclerViewAdapter.ViewHolder>() {
 
     private lateinit var onClick: PokemonListFragment
-    private lateinit var values: Array<PokemonDeck.PokemonNames>
+    private lateinit var values: Array<PokemonNames>
 
     /*private val onClickListener = View.OnClickListener { v ->
         val item = v.tag as PokemonDeck.PokemonNames
@@ -36,7 +37,7 @@ class PokemonRecyclerViewAdapter @Inject constructor() :
         }
     }*/
 
-    fun setList(values: Array<PokemonDeck.PokemonNames>) {
+    fun setList(values: Array<PokemonNames>) {
         this.values = values
     }
 

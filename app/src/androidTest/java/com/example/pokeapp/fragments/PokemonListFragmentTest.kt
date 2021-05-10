@@ -16,7 +16,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.example.pokeapp.R
 import com.example.pokeapp.adapters.PokemonRecyclerViewAdapter
 import com.example.pokeapp.launchFragmentInHiltContainer
-import com.example.pokeapp.models.PokemonDeck.PokemonNames
+import com.example.pokeapp.models.PokemonNames
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest

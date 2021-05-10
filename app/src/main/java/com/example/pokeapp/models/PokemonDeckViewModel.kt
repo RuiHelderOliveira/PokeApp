@@ -14,8 +14,8 @@ import javax.inject.Inject
 class PokemonDeckViewModel @Inject constructor(private val pokemonService: PokemonService) :
     ViewModel() {
 
-    private val _pokemonLiveData: MutableLiveData<PokemonDeck> = MutableLiveData<PokemonDeck>()
-    val pokemonLiveData: LiveData<PokemonDeck>
+    private val _pokemonLiveData: MutableLiveData<PokemonDeck?> = MutableLiveData<PokemonDeck?>()
+    val pokemonLiveData: LiveData<PokemonDeck?>
         get() = _pokemonLiveData
 
     fun getPokemons() {

@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.Navigation
 import com.example.pokeapp.R
 import com.example.pokeapp.adapters.PokemonRecyclerViewAdapter
 import com.example.pokeapp.databinding.FragmentPokemonListBinding
-import com.example.pokeapp.models.PokemonDeck
 import com.example.pokeapp.models.PokemonDeckViewModel
+import com.example.pokeapp.models.PokemonNames
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -34,7 +35,7 @@ class PokemonListFragment : Fragment(), View.OnClickListener {
     private val binding get() = _binding
 
     private val viewModel: PokemonDeckViewModel by viewModels()
-    lateinit var pokemons: Array<PokemonDeck.PokemonNames>
+    lateinit var pokemons: Array<PokemonNames>
 
     @Inject lateinit var adapter: PokemonRecyclerViewAdapter
 
@@ -61,14 +62,14 @@ class PokemonListFragment : Fragment(), View.OnClickListener {
         return binding.root
     }
 
-    private fun setPropertyAdapter(pokemons: Array<PokemonDeck.PokemonNames>) {
+    private fun setPropertyAdapter(pokemons: Array<PokemonNames>) {
         adapter.setOnClick(this)
         adapter.setList(pokemons)
         binding.pokemonList.adapter = adapter
     }
 
     override fun onClick(v: View?) {
-        val item = v?.tag as PokemonDeck.PokemonNames
+        val item = v?.tag as PokemonNames
         val bundle = bundleOf(PokemonDetailFragment.ARG_ITEM_ID to item.name)
 
 

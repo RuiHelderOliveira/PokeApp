@@ -2,8 +2,8 @@ package com.example.pokeapp.models
 
 data class PokemonDeck(
     val count: Int,
-    val next: String,
-    val previous: String,
+    val next: String?,
+    val previous: String?,
     val results: Array<PokemonNames>
 ) {
     override fun equals(other: Any?): Boolean {

@@ -11,8 +11,8 @@ import javax.inject.Inject
 @HiltViewModel
 class PokemonViewModel @Inject constructor(private val pokemonService: PokemonService) : ViewModel() {
 
-    private val _pokemonLiveData: MutableLiveData<Pokemon?> = MutableLiveData<Pokemon?>()
-    val pokemonLiveData: LiveData<Pokemon?>
+    private val _pokemonLiveData: MutableLiveData<Pokemon> = MutableLiveData<Pokemon>()
+    val pokemonLiveData: LiveData<Pokemon>
         get() = _pokemonLiveData
 
     fun getPokemon(keyword: String?) {

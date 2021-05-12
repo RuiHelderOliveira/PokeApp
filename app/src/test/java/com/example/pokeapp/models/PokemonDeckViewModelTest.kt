@@ -1,71 +1,63 @@
 package com.example.pokeapp.models
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.example.pokeapp.di.RetrofitModule
 import com.example.pokeapp.network.PokemonService
 import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations.initMocks
-import retrofit2.Call
-import retrofit2.Response
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class PokemonDeckViewModelTest {
+
+    companion object {
+        const val name = "bulbasaur"
+    }
 
     @Rule
     @JvmField
-    var rule = InstantTaskExecutorRule()
-
-    // Test rule for making the RxJava to run synchronously in unit test
-    /*companion object {
-        @ClassRule
-        @JvmField
-        val schedulers = RxImmediateSchedulerRule()
-    }*/
+    var instantExecutorRule = InstantTaskExecutorRule()
 
     @Mock
     lateinit var pokemonApi: PokemonService
 
     @Mock
-    lateinit var observer: Observer<PokemonDeck>
+    private lateinit var observer: Observer<PokemonDeck>
 
-    @Mock
-    var call: Call<PokemonDeck>? = null
-
-    @Mock
-    var response: Response<PokemonDeck>? = null
-
-    lateinit var pokemonDeckViewModel: PokemonDeckViewModel
+    lateinit var pokemonViewModel: PokemonDeckViewModel
 
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        //initMocks(this)
-        pokemonApi = RetrofitModule.provideService(RetrofitModule.provideRetrofit())
-        pokemonDeckViewModel = PokemonDeckViewModel(pokemonApi)
+        initMocks(this)
+        pokemonViewModel = PokemonDeckViewModel(pokemonApi)
+        pokemonViewModel.pokemonLiveData.observeForever(observer)
     }
-
-    @Test
-    fun testNull() {
-        assertNotNull(pokemonDeckViewModel.getPokemons())
-    }
-
 
     @Test
     fun getPokemonsServiceTest() {
         // mock data
-        val pokemonDeck = PokemonDeck(1118, "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20", null, arrayOf(
-            PokemonNames("bulbasaur", "https://pokeapi.co/api/v2/pokemon/1/")
-        ))
 
-        `when`(response!!.body()).thenReturn(pokemonDeck)
+        val pokemonsDeck = PokemonDeck(
+            1118,
+            "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
+            null,
+            arrayOf(PokemonNames("bulbasaur", "https://pokeapi.co/api/v2/pokemon/1/"))
+        )
 
-        // assert that the name matches
-        assert(pokemonDeckViewModel.pokemonLiveData.value!!.count == 1118)
-        assert(pokemonDeckViewModel.pokemonLiveData.value!!.results[0].name.equals("bulbasaur"))
+        pokemonViewModel.pokemonLiveData.observeForever {
+            assertNotNull(it)
+            assert(it.count == pokemonsDeck.count)
+            assert(it.next.equals(pokemonsDeck.next))
+            assert(it.previous.equals(pokemonsDeck.previous))
+            assert(it.results[0].name == pokemonsDeck.results[0].name)
+        }
     }
 }

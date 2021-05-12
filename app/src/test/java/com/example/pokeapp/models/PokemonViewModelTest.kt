@@ -1,77 +1,70 @@
 package com.example.pokeapp.models
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.example.pokeapp.di.RetrofitModule
 import com.example.pokeapp.network.PokemonService
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations.initMocks
-import retrofit2.Call
-import retrofit2.Response
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class PokemonViewModelTest {
 
-    @Rule
-    @JvmField
-    var rule = InstantTaskExecutorRule()
+    companion object {
+        const val name = "bulbasaur"
+    }
 
-    // Test rule for making the RxJava to run synchronously in unit test
-    /*companion object {
-        @ClassRule
-        @JvmField
-        val schedulers = RxImmediateSchedulerRule()
-    }*/
+    @get:Rule
+    public var instantExecutorRule = InstantTaskExecutorRule()
 
     @Mock
     lateinit var pokemonApi: PokemonService
 
     @Mock
-    lateinit var observer: Observer<Pokemon>
-
-    @Mock
-    var call: Call<Pokemon>? = null
-
-    @Mock
-    var response: Response<Pokemon>? = null
+    private lateinit var observer: Observer<Pokemon>
 
     lateinit var pokemonViewModel: PokemonViewModel
-
-    val name = "bulbasaur"
 
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        //initMocks(this)
-        pokemonApi = RetrofitModule.provideService(RetrofitModule.provideRetrofit())
+        initMocks(this)
         pokemonViewModel = PokemonViewModel(pokemonApi)
+        pokemonViewModel.pokemonLiveData.observeForever(observer)
     }
-
-    @Test
-    fun testNull() {
-        assertNotNull(pokemonViewModel.getPokemon(name))
-    }
-
 
     @Test
     fun getPokemonsServiceTest() {
         // mock data
 
-        `when`(response!!.body()).thenReturn(Pokemon(1, "bulbasaur", 64, 7, true, 1,69, null))
+        val pokemon = Pokemon(
+            1,
+            "bulbasaur",
+            64,
+            7,
+            true,
+            1,
+            69,
+            null
+        )
 
-        // assert that the name matches
-        assert(pokemonViewModel.pokemonLiveData.value!!.id == 1)
-        assert(pokemonViewModel.pokemonLiveData.value!!.name.equals("bulbasaur"))
-        assert(pokemonViewModel.pokemonLiveData.value!!.base_experience == 64)
-        assert(pokemonViewModel.pokemonLiveData.value!!.height == 7)
-        assertTrue(pokemonViewModel.pokemonLiveData.value!!.is_default == true)
-        assert(pokemonViewModel.pokemonLiveData.value!!.order == 1)
-        assert(pokemonViewModel.pokemonLiveData.value!!.weight == 69)
+        pokemonViewModel.pokemonLiveData.observeForever {
+            assertNotNull(it)
+            assert(it.id == pokemon.id)
+            assert(it.name.equals(pokemon.name))
+            assert(it.base_experience == pokemon.base_experience)
+            assert(it.height == pokemon.height)
+            assertTrue(it.is_default == pokemon.is_default)
+            assert(it.order == pokemon.order)
+            assert(it.weight == pokemon.weight)
+        }
     }
 }

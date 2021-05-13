@@ -13,6 +13,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
+import com.example.pokeapp.BaseTest
 import com.example.pokeapp.R
 import com.example.pokeapp.adapters.PokemonRecyclerViewAdapter
 import com.example.pokeapp.launchFragmentInHiltContainer
@@ -34,10 +35,11 @@ import org.mockito.MockitoAnnotations
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class PokemonListFragmentTest {
+class PokemonListFragmentTest : BaseTest() {
 
     @Before
-    fun setUp() {
+    override fun setUp() {
+        super.setUp()
         // Populate @Inject fields in test class
         hiltRule.inject()
         AccessibilityChecks.enable()

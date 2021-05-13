@@ -10,6 +10,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import com.example.pokeapp.BaseTest
 import com.example.pokeapp.R
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -22,17 +23,17 @@ import org.junit.runner.RunWith
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class LoginFragmentTest {
-
-    @Before
-    fun setUp() {
-        // Populate @Inject fields in test class
-        hiltRule.inject()
-        AccessibilityChecks.enable()
-    }
+class LoginFragmentTest : BaseTest() {
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
+
+    @Before
+    override fun setUp() {
+        super.setUp()
+        // Populate @Inject fields in test class
+        hiltRule.inject()
+    }
 
     @Test
     fun testNavigationToList() {

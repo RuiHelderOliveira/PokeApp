@@ -16,7 +16,8 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "com.example.pokeapp.PokemonAppTest"
+        testInstrumentationRunner "com.example.pokeapp.CustomTestRunner"
+        //testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
     }
@@ -33,10 +34,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
-        debug {
-            applicationIdSuffix ".debug"
-            debuggable true
-        }
+        //debug {
+        //    applicationIdSuffix ".debug"
+        //    debuggable true
+        //}
     }
 
     packagingOptions {
@@ -55,6 +56,10 @@ android {
     kapt {
         generateStubs = true
         correctErrorTypes = true
+    }
+
+    hilt {
+        enableTransformForLocalTests = true
     }
 }
 
@@ -103,32 +108,35 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // Navigation test
-    //androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
     // Test
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'androidx.test.ext:truth:1.3.0'
-    //androidTestImplementation 'com.google.truth:truth:1.1.2'
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
-    //androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    //androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    //androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
-    //androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.3.0'
-    //androidTestImplementation 'androidx.test.espresso:espresso-intents:3.3.0'
+    androidTestImplementation 'com.google.truth:truth:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.3.0'
+    androidTestImplementation "androidx.test:runner:1.3.0"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation "androidx.test:core:1.3.0"
+    androidTestImplementation "androidx.test:rules:1.3.0"
 
     def mockito_version = '2.19.0' // For local unit tests on your development machine
     testImplementation "org.mockito:mockito-core:$mockito_version"
     // For instrumentation tests on Android devices and emulators
-    ////stestImplementation "org.mockito:mockito-android:$mockito_version"
+    androidTestImplementation "org.mockito:mockito-android:$mockito_version"
     testImplementation "org.mockito:mockito-inline:$mockito_version"
 
     def fragment_version = "1.3.3"
-    //androidTestImplementation "androidx.fragment:fragment-testing:$fragment_version"
+    androidTestImplementation "androidx.fragment:fragment-testing:$fragment_version"
 
     // ...with Kotlin.
     //kaptTest "com.google.dagger:hilt-android-compiler:$hilt_version"
     // For instrumented tests.
-    //androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
     // ...with Kotlin.
-    //kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
 }

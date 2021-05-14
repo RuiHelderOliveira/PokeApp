@@ -6,10 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
 import com.example.pokeapp.R
 import com.example.pokeapp.databinding.FragmentLoginBinding
-import com.example.pokeapp.databinding.FragmentPokemonDetailBinding
 
 class LoginFragment : Fragment() {
 

@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeapp.R
 import com.example.pokeapp.fragments.PokemonListFragment
-import com.example.pokeapp.models.PokemonDeck
 import com.example.pokeapp.models.PokemonNames
 import java.util.*
 import javax.inject.Inject

@@ -8,14 +8,9 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.OnLifecycleEvent
 import com.example.pokeapp.R
 import com.example.pokeapp.databinding.FragmentPokemonDetailBinding
-import com.example.pokeapp.models.PokemonDeck
-import com.example.pokeapp.models.PokemonNames
 import com.example.pokeapp.models.PokemonViewModel
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 

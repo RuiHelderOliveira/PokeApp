@@ -2,6 +2,8 @@ package com.example.pokeapp.fragments
 
 import android.content.Context
 import android.os.Bundle
+import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
@@ -30,20 +32,34 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mock
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
-
+import org.mockito.MockitoAnnotations.initMocks
 
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
-@LargeTest
 class PokemonListFragmentTest : BaseTest() {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+
+    @Mock
+    private lateinit var context: Context
+
+    @Mock
+    private lateinit var mockPokemons: Array<PokemonNames>
+
+    @Mock
+    var mAdapter: RecyclerView.Adapter<PokemonRecyclerViewAdapter.ViewHolder>? = null
+
+    @Mock
+    private var mRecyclerView: RecyclerView? = null
 
     @Before
     override fun setUp() {
         super.setUp()
         // Populate @Inject fields in test class
         hiltRule.inject()
-        AccessibilityChecks.enable()
-        MockitoAnnotations.initMocks(this);
+
+        initMocks(this);
 
         mockPokemons = arrayOf(PokemonNames("ditto", ""))
         mAdapter = PokemonRecyclerViewAdapter()
@@ -77,21 +93,6 @@ class PokemonListFragmentTest : BaseTest() {
     fun onClick() {
     }
 
-    @Mock
-    private lateinit var context: Context
-
-    @Mock
-    private var mockPokemons: Array<PokemonNames>? = null
-
-    @Mock
-    var mAdapter: RecyclerView.Adapter<PokemonRecyclerViewAdapter.ViewHolder>? = null
-
-    @Mock
-    private var mRecyclerView: RecyclerView? = null
-
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
-
     @Test
     fun testSetAdapter() {
         mRecyclerView?.setAdapter(mAdapter)
@@ -110,15 +111,15 @@ class PokemonListFragmentTest : BaseTest() {
         }
 
         // Create a graphical FragmentScenario for the TitleScreen
-        val listScenario = launchFragmentInHiltContainer<PokemonListFragment>(fragmentArgs)
+        val listScenario = launchFragmentInContainer<PokemonListFragment>(fragmentArgs)
 
-        /*listScenario.onFragment { fragment ->
+        listScenario.onFragment { fragment ->
             // Set the graph on the TestNavHostController
             navController.setGraph(R.navigation.nav_graph)
 
             // Make the NavController available via the findNavController() APIs
             Navigation.setViewNavController(fragment.requireView(), navController)
-        }*/
+        }
 
         onView(withId(R.id.pokemon_list)).perform(
             actionOnItemAtPosition<PokemonRecyclerViewAdapter.ViewHolder>(

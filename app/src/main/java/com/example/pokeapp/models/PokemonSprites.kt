@@ -1,7 +1,5 @@
 package com.example.pokeapp.models
 
-import java.lang.reflect.Constructor
-
 data class PokemonSprites(
     val back_default: String?,
     val back_shiny: String?,
